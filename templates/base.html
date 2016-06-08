@@ -19,12 +19,10 @@
 
     {% include 'menu.html' %}
 
-    <div class="container-fluid">
-      <div class="starter-template">
+    <div class="container-fluid starter-template">
     {% block content %}
 
     {% endblock %}
-      </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -33,5 +31,8 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
     <script src="{% static 'js/vod.js' %}"></script>
+
+  {% block footer %}{% endblock %}
+
   </body>
 </html>

@@ -1,29 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="span11" style="overflow: auto">
-    <div class="row-fluid">
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-        <div class="col-lg-3">
-          <img src="http://lorempixel.com/214/317/?t=1">
-        </div>
-      </div>
-  </div>
+
+  <ul class="horizontal-slide">
+  {% for movie in movie_list %}
+    <li class="span2">
+      <a href="#">
+        <div>
+        <img src="{{ movie.image }}" alt="">
+          </div>
+        {{ movie.title }}
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+
+  <video width="320" height="240" controls>
+    <source src='http://d2bqeap5aduv6p.cloudfront.net/project_coderush_640x360_521kbs_56min.mp4' type="video/mp4">
+    Fallback content: Your browser does not support the video tag.
+  </video>
+
+{% endblock %}
+
+{% block footer %}
+
+  <script type="application/javascript">
+  $(function () {
+    console.log( "ready!" );
+    alert('test');
+  });
+  </script>
+  
 {% endblock %}

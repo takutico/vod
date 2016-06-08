@@ -16,7 +16,30 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from rest_framework import routers, serializers, viewsets
+
+
+# Serializers define the API representation.
+from movies.models import Movie
+
+
+class MovieSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ('id', 'title', 'description', 'image', 'url')
+
+
+# ViewSets define the view behavior.
+class MovieViewSet(viewsets.ModelViewSet):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'movies', MovieViewSet)
+
 urlpatterns = [
     url(r'^', include('publics.urls')),
+    url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
 ]

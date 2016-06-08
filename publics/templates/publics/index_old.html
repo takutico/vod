@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+
+
+{% block header %}
+  .services li.selected {
+    background-color: grey;
+}
+{% endblock %}
+{% block content %}
+
+
+  <div class="services">
+  <div class="items">
+    <ul>
+        <li class="mail-icon"><a href="#" id="mail"><img src="http://lorempixel.com/214/317/?t=1"></a></li>
+        <li class="forum-icon"><a href="#" id="forum"><img src="http://lorempixel.com/214/317/?t=1"></a></li>
+        <li class="chat-icon"><a href="#" id="chat"><img src="http://lorempixel.com/214/317/?t=1"></a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="span11" style="overflow: auto">
+  <div class="row-fluid">
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+      <div class="col-lg-3">
+        <img src="http://lorempixel.com/214/317/?t=1">
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+  <script type="application/javascript">
+ $(document).ready(function(){
+   if (e.keyCode == 38) { // up
+    var selected = $(".selected");
+    $(".services li").removeClass("selected");
+
+    // if there is no element before the selected one, we select the last one
+    if (selected.prev().length == 0) {
+        selected.siblings().last().addClass("selected");
+    } else { // otherwise we just select the next one
+        selected.prev().addClass("selected");
+    }
+}
+ })
+  /*
+  $(document).bind('keyup', function(e) {
+    if(e.which == 39){
+      // Do right arrow stuff
+      $('.carousel').carousel('next');
+    }
+    else if(e.which == 37){
+      // Do left arrow stuff
+      $('.carousel').carousel('prev');
+    }
+  });
+  */
+  </script>
+{% endblock %}
