@@ -33,6 +33,8 @@ class Movie(models.Model):
     # This is to do it easy
     image = models.URLField()
     url = models.URLField()
+    # Date to indicate that user watched movie
+    watched_date = models.DateTimeField(null=True)
 
 
 def movie_image_directory_path(instance, filename):

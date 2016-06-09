@@ -3,17 +3,18 @@
 
 {% block content %}
 
-  <ul class="horizontal-slide thumbnail_list">
-  {% for movie in movie_list %}
-    <li class="span2">
-      <div class="video_image" data-video="{{ movie.url }}">
-        <div class="thumbnail">
-          <img src="{{ movie.image }}" alt="">
-        </div>
-        {{ movie.title }}
-      </div>
-    </li>
-  {% endfor %}
+  <ul id="movie_list" class="horizontal-slide thumbnail_list">
+    {% include 'publics/movie_list.html' %}
+{#  {% for movie in movie_list %}#}
+{#    <li class="span2">#}
+{#      <div class="video_image" data-video="{{ movie.url }}">#}
+{#        <div class="thumbnail">#}
+{#          <img src="{{ movie.image }}" alt="">#}
+{#        </div>#}
+{#        {{ movie.title }}#}
+{#      </div>#}
+{#    </li>#}
+{#  {% endfor %}#}
   </ul>
 
   <div id="divVideo" class="hidden">
@@ -116,6 +117,17 @@
       document.webkitExitFullscreen();
     }
   }
+
+  function reloadMovies(option){
+    console.log('test');
+    $.ajax({
+        type: "POST",
+        url: "{% url 'refresh_movie_list' %}",
+        data: {'option': option}
+      }).done(function( data ) {
+         $('#movie_list').html(data);
+      });
+    }
   </script>
   
 {% endblock %}

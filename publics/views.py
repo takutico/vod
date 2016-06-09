@@ -2,8 +2,11 @@ import json
 import logging
 import traceback
 import urllib
+from datetime import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, render_to_response
+from django.template.context import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 from movies.models import Movie
 
@@ -21,6 +24,32 @@ def index(request):
         'movie_list': movie_list
     }
     return render(request, 'publics/index.html', context)
+
+
+@csrf_exempt
+def refresh_movie_list(request):
+    movie_list = None
+    try:
+        if 'option' in request.POST and request.POST['option'] == 'historic':
+            movie_list = Movie.objects.filter(watched_date__isnull=False).order_by('-watched_date')[:10]
+        else:
+            movie_list = Movie.objects.all().order_by('?')[:10]
+    except:
+        logger.error(traceback.format_exc())
+    context_instance = RequestContext(request)
+    context = {
+        'movie_list': movie_list
+    }
+    return render_to_response('publics/movie_list.html', context, context_instance)
+
+
+def watch_movie(request, movie_id):
+    try:
+        movie = get_object_or_404(Movie, id=movie_id)
+        movie.watched_date = datetime.now()
+        movie.save()
+    except:
+        pass
 
 
 def import_data():
