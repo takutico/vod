@@ -36,3 +36,18 @@ ul.horizontal-slide li[class*="span"] {
 ul.horizontal-slide li[class*="span"]:first-child {
     margin-left: 0;
 }
+
+.thumbnail{
+    padding: 6px;
+    border: 1px solid #dddddd;
+    -webkit-user-select: none;
+    margin-bottom: 5px;
+}
+.thumbnail.selected {
+    background: #0088cc;
+}
+
+/*pointer*/
+.video_image{
+    cursor: pointer;
+}

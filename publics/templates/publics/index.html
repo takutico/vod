@@ -1,34 +1,121 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
-  <ul class="horizontal-slide">
+  <ul class="horizontal-slide thumbnail_list">
   {% for movie in movie_list %}
     <li class="span2">
-      <a href="#">
-        <div>
-        <img src="{{ movie.image }}" alt="">
-          </div>
+      <div class="video_image" data-video="{{ movie.url }}">
+        <div class="thumbnail">
+          <img src="{{ movie.image }}" alt="">
+        </div>
         {{ movie.title }}
-      </a>
+      </div>
     </li>
   {% endfor %}
   </ul>
 
-  <video width="320" height="240" controls>
-    <source src='http://d2bqeap5aduv6p.cloudfront.net/project_coderush_640x360_521kbs_56min.mp4' type="video/mp4">
-    Fallback content: Your browser does not support the video tag.
-  </video>
+  <div id="divVideo" class="hidden">
+    <video class="video_player" id="player" width="100%" controls="controls">
+      <source id="video_src" src=""/>
+      Your browser does not support the HTML5 video tag.  Use a better browser!
+    </video>
+  </div>
 
 {% endblock %}
 
 {% block footer %}
 
   <script type="application/javascript">
+
   $(function () {
-    console.log( "ready!" );
-    alert('test');
+
+    // Set first element of the list as selected
+    $( ".thumbnail_list .thumbnail" ).first().addClass( "selected" );
+
+    $('.video_image').on('click', function() {
+      playVideo($(this));
+    });
+
+    // Exit full screen when video finished
+    $("#player").on('ended', function(){
+      exitFullscreen();
+      $('#divVideo').addClass('hidden');
+    });
+    $("#player").on('webkitExitFullScreen', function(){
+      exitFullscreen();
+      $('#divVideo').addClass('hidden');
+    });
+
+
+
   });
+
+  $(document).keydown(function(e) {
+    switch(e.which) {
+      case 13: // enter
+              var selected = $(".selected").parents('.video_image');
+              playVideo(selected);
+      break;
+
+      case 37: // left
+              console.log('left');
+      break;
+
+      case 39: // right
+              var selected = $(".selected").parents('.span2');
+              // Remove selected class from all elements
+              $(".thumbnail_list .thumbnail").removeClass( "selected" );
+
+              // if there is no element before the selected one, we select the last one
+              if (selected.next().length == 0) {
+                  selected.siblings().first().children(".thumbnail").addClass("selected");
+              } else { // otherwise we just select the next one
+                  selected.next().children(".video_image").children(".thumbnail").addClass("selected");
+              }
+        break;
+
+      default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
+  function playVideo(video_element){
+    // Remove selected class from all elements
+    $(".thumbnail_list .thumbnail").removeClass( "selected" );
+    // Add selected class to clicked element
+    video_element.children(".thumbnail").addClass( "selected" );
+
+    // Remove hidden from video element
+    $('#divVideo').removeClass('hidden');
+    $('#video_src').attr('src', video_element.data( "video" ) );
+    // $("#video_src").load();
+    $("#divVideo video")[0].load();
+    goFullscreen('player');
+    $('.video_player').attr("autoplay", "autoplay");
+  }
+  
+  function goFullscreen(id) {
+    var element = document.getElementById(id);
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    }
+  }
+
+  function exitFullscreen() {
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
   </script>
   
 {% endblock %}
