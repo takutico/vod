@@ -48,7 +48,7 @@ class MovieImage(models.Model):
     modified = models.DateTimeField(auto_now=True)
     # Images information
     movie = models.ForeignKey(Movie)
-    image = models.ImageField(upload_to=movie_image_directory_path)
+    # image = models.ImageField(upload_to=movie_image_directory_path)
 
 
 class Content(models.Model):
