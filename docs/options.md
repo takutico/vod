@@ -4,7 +4,7 @@ You should install mysqlclient
 
 Activate virtualenv
 
-````$ source VENV_PATH/bin/activate```
+```$ source VENV_PATH/bin/activate```
 
 You may need to install the Python and MySQL development headers and librariessudo
 
@@ -23,7 +23,7 @@ You can import [this](https://demo2697834.mockable.io/movies) API to this system
 
 Activate virtualenv
 
-``$ source VENV_PATH/bin/activate```
+```$ source VENV_PATH/bin/activate```
 
 Use python shell to use project functions
 
