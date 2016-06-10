@@ -3,6 +3,7 @@ Simple Media App VOD (Video On-Demand) application that keeps track of a list of
 
 ## Demo Site
 http://vod.yamaguchipadilla.com/
+If you want to get movies data as a JSON http://vod.yamaguchipadilla.com/api/movies/?format=json
 
 This site is located in AWS
 
@@ -32,7 +33,9 @@ Run server
 
 ```python vod/manage.py runserver```
 
-You can check it http://127.0.0.1:8000/
+You can check it in http://127.0.0.1:8000/
+
+If you want to get just the movies data as a JSON http://127.0.0.1:8000/api/movies/?format=json
 
 ## Documents
 
