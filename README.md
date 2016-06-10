@@ -4,6 +4,8 @@ Simple Media App VOD (Video On-Demand) application that keeps track of a list of
 ## Demo Site
 http://vod.yamaguchipadilla.com/
 
+This site is located in AWS
+
 ## Run Application in Local
 Create a project directory and go inside
 ```
@@ -26,3 +28,12 @@ Install all requirements
 
 ```pip install -r vod/requirements.txt```
 
+Run server
+
+```python vod/manage.py runserver```
+
+You can check it http://127.0.0.1:8000/
+
+## Documents
+
+You can find more documents [Here](docs/) about installation in AWS, integrate with MySQL, etc...
