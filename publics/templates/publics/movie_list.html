@@ -1,14 +1,22 @@
 {% if movie_list %}
-  {% for movie in movie_list %}
-    <li class="span2">
-      <div class="video_image" data-video="{{ movie.url }}">
-        <div class="thumbnail">
-          <img src="{{ movie.image }}" alt="">
+  {% if is_history_page %}
+    <div class="pull-right">
+      <a href="#" onclick="clear_history();">Clear history data</a>
+    </div>
+  {% endif %}
+  <ul id="movie_list" class="horizontal-slide thumbnail_list">
+    {% for movie in movie_list %}
+      <li class="span2">
+        <div class="video_image" data-video="{{ movie.url }}" data-id="{{ movie.id }}">
+          <div class="thumbnail">
+            <img src="{{ movie.image }}" alt="">
+            <a class="play"><i class="fa fa-play-circle-o fa-5x"></i></a>
+          </div>
+          {{ movie.title|truncatechars:30 }}
         </div>
-        {{ movie.title }}
-      </div>
-    </li>
-  {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
 {% else %}
   No movies
 {% endif %}

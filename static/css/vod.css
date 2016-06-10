@@ -50,4 +50,24 @@ ul.horizontal-slide li[class*="span"]:first-child {
 /*pointer*/
 .video_image{
     cursor: pointer;
+    position:relative;
+}
+.video_image:hover .play{
+    display:block
+}
+
+.video {
+    background:red;
+    float:left;
+    position:relative
+}
+
+.play{
+    position : absolute;
+    display:none;
+    top:40%;
+    width:40px;
+    margin:0 auto; left:0px;
+    right:0px;
+    z-index:100
 }
