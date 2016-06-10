@@ -63,3 +63,8 @@ target/
 
 # remove pycharm files
 .idea/
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml'
+.idea/vcs.xml
+.idea/vod.iml
