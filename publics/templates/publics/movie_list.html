@@ -6,14 +6,12 @@
   {% endif %}
   <ul id="movie_list" class="horizontal-slide thumbnail_list">
     {% for movie in movie_list %}
-      <li class="span2">
-        <div class="video_image" data-video="{{ movie.url }}" data-id="{{ movie.id }}">
+      <li class="span2 video_image" data-video="{{ movie.url }}" data-id="{{ movie.id }}">
           <div class="thumbnail">
             <img src="{{ movie.image }}" alt="">
             <a class="play"><i class="fa fa-play-circle-o fa-5x"></i></a>
           </div>
           {{ movie.title|truncatechars:30 }}
-        </div>
       </li>
     {% endfor %}
   </ul>

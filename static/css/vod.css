@@ -43,7 +43,12 @@ ul.horizontal-slide li[class*="span"]:first-child {
     -webkit-user-select: none;
     margin-bottom: 5px;
 }
+/*
 .thumbnail.selected {
+    background: #0088cc;
+}*/
+
+ul.thumbnail_list li.selected .thumbnail {
     background: #0088cc;
 }
 
@@ -51,6 +56,9 @@ ul.horizontal-slide li[class*="span"]:first-child {
 .video_image{
     cursor: pointer;
     position:relative;
+}
+.video_image:hover{
+    opacity:0.8;
 }
 .video_image:hover .play{
     display:block

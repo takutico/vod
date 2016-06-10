@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 
-  <ul id="movie_list" class="horizontal-slide thumbnail_list">
-    {% include 'publics/movie_list.html' %}
-  </ul>
+  {% include 'publics/movie_list.html' %}
 
   <div id="divVideo" class="hidden">
     <video id="player" class="video_player" width="100%" controls="controls">
@@ -13,9 +10,5 @@
       Your browser does not support the HTML5 video tag.  Use a better browser!
     </video>
   </div>
-
-{% endblock %}
-
-{% block footer %}
 
 {% endblock %}

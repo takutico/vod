@@ -1,7 +1,7 @@
 $(function () {
     // Set first element of the list as selected
-    $(".thumbnail_list .thumbnail").first().addClass("selected");
-    $('.video_image').on('click', function () {
+    $(".thumbnail_list li").first().addClass("selected");
+    $('.thumbnail_list li').on('click', function () {
         playVideo($(this));
     });
 
@@ -9,8 +9,12 @@ $(function () {
     $("#player").on('ended', function () {
         exit_full_screen();
     });
-});
 
+    $('.carousel').carousel({
+        keyboard: true
+    });
+
+});
 
 // This is to catch event when exit full screen pressing ESC
 var screen_change_handler = function() {
@@ -28,30 +32,29 @@ document.addEventListener("msfullscreenchange", screen_change_handler, true);
 $(document).keydown(function (e) {
     switch (e.which) {
         case 13: // enter
-            var selected = $(".selected").parents('.video_image');
-            playVideo(selected);
+            playVideo($(".selected").first());
             break;
         case 37: // left
-            var selected = $(".selected").parents('.span2');
+            var selected = $(".selected");
             // Remove selected class from all elements
-            $(".thumbnail_list .thumbnail").removeClass("selected");
+            $(".thumbnail_list li").removeClass("selected");
 
             // if there is no element before the selected one, we select the last one
             if (selected.prev().length == 0) {
-                selected.siblings().first().children(".thumbnail").addClass("selected");
+                selected.siblings().first().addClass("selected");
             } else { // otherwise we just select the next one
-                selected.prev().children(".video_image").children(".thumbnail").addClass("selected");
+                selected.prev().addClass("selected");
             }
             break;
         case 39: // right
-            var selected = $(".selected").parents('.span2');
+            var selected = $(".selected");
             // Remove selected class from all elements
-            $(".thumbnail_list .thumbnail").removeClass("selected");
+            $(".thumbnail_list li").removeClass("selected");
             // if there is no element before the selected one, we select the last one
             if (selected.next().length == 0) {
-                selected.siblings().first().children(".thumbnail").addClass("selected");
+                selected.siblings().first().addClass("selected");
             } else { // otherwise we just select the next one
-                selected.next().children(".video_image").children(".thumbnail").addClass("selected");
+                selected.next().addClass("selected");
             }
             break;
         default:
@@ -62,16 +65,17 @@ $(document).keydown(function (e) {
 
 function playVideo(video_element) {
     // Remove selected class from all elements
-    $(".thumbnail_list .thumbnail").removeClass("selected");
+    $(".thumbnail_list li").removeClass("selected");
     // Add selected class to clicked element
-    video_element.children(".thumbnail").addClass("selected");
+    video_element.addClass("selected");
     // Remove hidden from video element
     $('#divVideo').removeClass('hidden');
     $('#video_src').attr('src', video_element.data("video"));
     // $("#video_src").load();
     $("#divVideo video")[0].load();
     go_full_screen();
-    //$('.video_player').attr("autoplay", "autoplay");
+    // mark as watched
+    watchMovie(video_element.data("id"));
 }
 
 function go_full_screen() {
@@ -101,12 +105,30 @@ function exit_full_screen() {
 }
 
 function reloadMovies(option) {
-    console.log('test');
     $.ajax({
         type: "POST",
-        url: "{% url 'refresh_movie_list' %}",
+        url: "/refresh/",
         data: {'option': option}
     }).done(function (data) {
         $('#movie_list').html(data);
+        $(".thumbnail_list li").first().addClass("selected");
+    });
+}
+
+function clear_history() {
+    $.ajax({
+        type: "POST",
+        url: '/clear_history/',
+        data: {}
+    }).done(function (data) {
+        reloadMovies('historic');
+    });
+}
+
+function watchMovie(movie_id) {
+    $.ajax({
+        type: "POST",
+        url: '/watch_movie/',
+        data: {'movie_id': movie_id}
     });
 }
