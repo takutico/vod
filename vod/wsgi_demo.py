@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vod.settings_demo")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vod.settings")
 
 application = get_wsgi_application()
