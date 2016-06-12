@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 def index(request):
     movie_list = None
     try:
-        movie_list = Movie.objects.all().order_by('?')[:10]
+        # order randomly
+        movie_list = Movie.objects.all().order_by('?')
     except:
         logger.error(traceback.format_exc())
 
@@ -35,7 +36,7 @@ def refresh_movie_list(request):
         if 'option' in request.POST and request.POST['option'] == 'historic':
             is_history_page = True
             movie_list = Movie.objects.filter(
-                watched_date__isnull=False).order_by('-watched_date')[:10]
+                watched_date__isnull=False).order_by('-watched_date')
         else:
             movie_list = Movie.objects.all().order_by('?')[:10]
     except:
