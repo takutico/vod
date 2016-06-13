@@ -38,7 +38,7 @@ def refresh_movie_list(request):
             movie_list = Movie.objects.filter(
                 watched_date__isnull=False).order_by('-watched_date')
         else:
-            movie_list = Movie.objects.all().order_by('?')[:10]
+            movie_list = Movie.objects.all().order_by('?')
     except:
         logger.error(traceback.format_exc())
     context = {
